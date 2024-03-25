@@ -2,8 +2,8 @@
     "name": "nodeRed_dev_container",
     "description": "A NodeRED VsCode Dev Container Boilerplate",
     "author": {
-        "name": "Felipe Lambert",
-        "email": "felipe.lambert@outlook.com"
+        "name": "Gabriel Victor",
+        "email": "gabrielvictor159487@gmail.com"
     },
     "license": "Apache-2.0",
     "keywords": [
@@ -13,7 +13,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/felpasl/NodeRed-VsCode-DevContainer"
+        "url": "https://github.com/GabrielVictor159/NodeRed_Study_Identity"
     },
     "version": "0.0.1",
     "private": true
