@@ -1,0 +1,341 @@
+[
+    {
+        "id": "d8373918c229715f",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7cadde58d697477f",
+        "type": "global-config",
+        "name": "global-config",
+        "env": [
+            {
+                "name": "API_ROUTER",
+                "value": "https://f746-2804-1b2-10c2-3f5f-9031-a094-5803-664f.ngrok-free.app/api/",
+                "type": "str"
+            }
+        ]
+    },
+    {
+        "id": "da1ff5845d4ec433",
+        "type": "function",
+        "z": "d8373918c229715f",
+        "name": "function 1",
+        "func": "const date = new Date(msg.payload);\n\nmsg.baseUrl = env.get(\"API_ROUTER\") + \"ConfirmUser\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 220,
+        "wires": [
+            [
+                "a7f2aa587878ab56"
+            ]
+        ]
+    },
+    {
+        "id": "a7f2aa587878ab56",
+        "type": "http request",
+        "z": "d8373918c229715f",
+        "name": "Confirm User",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "{{{baseUrl}}}",
+        "tls": "",
+        "persist": true,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 510,
+        "y": 220,
+        "wires": [
+            [
+                "7bb414a729b50f45"
+            ]
+        ]
+    },
+    {
+        "id": "7bb414a729b50f45",
+        "type": "switch",
+        "z": "d8373918c229715f",
+        "name": "Validate Success",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "400",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 710,
+        "y": 220,
+        "wires": [
+            [
+                "ebee63e5befc84b2"
+            ],
+            [
+                "ebfec6bbc2e71465"
+            ]
+        ]
+    },
+    {
+        "id": "ebfec6bbc2e71465",
+        "type": "debug",
+        "z": "d8373918c229715f",
+        "name": "Response BadRequest",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "c5527f0e8fb17092",
+        "type": "http request",
+        "z": "d8373918c229715f",
+        "name": "Login User",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "{{{baseUrl}}}",
+        "tls": "",
+        "persist": true,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1030,
+        "y": 80,
+        "wires": [
+            [
+                "528eafcf15c00fa3"
+            ]
+        ]
+    },
+    {
+        "id": "ebee63e5befc84b2",
+        "type": "function",
+        "z": "d8373918c229715f",
+        "name": "function 2",
+        "func": "const date = new Date(msg.payload);\n\nmsg.baseUrl = `${env.get(\"API_ROUTER\")}Login`;\nmsg.payload = {\n  \"userNameOrUserEmail\": \"string\",\n  \"password\": \"string\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 80,
+        "wires": [
+            [
+                "c5527f0e8fb17092"
+            ]
+        ]
+    },
+    {
+        "id": "528eafcf15c00fa3",
+        "type": "debug",
+        "z": "d8373918c229715f",
+        "name": "Response Login",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c78bafba06aa1029",
+        "type": "http request",
+        "z": "d8373918c229715f",
+        "name": "Create Request Customer",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "{{{baseUrl}}}",
+        "tls": "",
+        "persist": true,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 410,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7e5ffe9635ec6cea",
+        "type": "function",
+        "z": "d8373918c229715f",
+        "name": "Create Body Customer",
+        "func": "const date = new Date(msg.payload);\n\nmsg.baseUrl = env.get(\"API_ROUTER\");\nmsg.payload = {\n    \"userName\": \"string\",\n    \"password\": \"string\",\n    \"email\": \"jknnz.cf@gmail.com\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 540,
+        "wires": [
+            [
+                "c78bafba06aa1029"
+            ]
+        ]
+    },
+    {
+        "id": "982d05d09f80e9b5",
+        "type": "http in",
+        "z": "d8373918c229715f",
+        "name": "Create Customer",
+        "url": "/customer/create",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 680,
+        "wires": [
+            [
+                "f6d1ecc1cf4eecf6"
+            ]
+        ]
+    },
+    {
+        "id": "f6d1ecc1cf4eecf6",
+        "type": "function",
+        "z": "d8373918c229715f",
+        "name": "Validate Customer",
+        "func": "msg.baseUrl = env.get(\"API_ROUTER\") + \"RequestUser/RequestUser\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 680,
+        "wires": [
+            [
+                "6e966fea491f653f"
+            ]
+        ]
+    },
+    {
+        "id": "6e966fea491f653f",
+        "type": "http request",
+        "z": "d8373918c229715f",
+        "name": "Create Customer",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "{{{baseUrl}}}",
+        "tls": "",
+        "persist": true,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 530,
+        "y": 680,
+        "wires": [
+            [
+                "58eb6ae4d840ea79"
+            ]
+        ]
+    },
+    {
+        "id": "58eb6ae4d840ea79",
+        "type": "switch",
+        "z": "d8373918c229715f",
+        "name": "Validate Success",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "400",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 750,
+        "y": 680,
+        "wires": [
+            [
+                "b19ee95dd3ba9310"
+            ],
+            [
+                "b19ee95dd3ba9310"
+            ]
+        ]
+    },
+    {
+        "id": "b19ee95dd3ba9310",
+        "type": "http response",
+        "z": "d8373918c229715f",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 950,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "f9ca0fc11c5c52f3",
+        "type": "http in",
+        "z": "d8373918c229715f",
+        "name": "Cofirm Email Customer",
+        "url": "/customer/valid",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "da1ff5845d4ec433"
+            ]
+        ]
+    }
+]
